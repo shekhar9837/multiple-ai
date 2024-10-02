@@ -34,7 +34,7 @@ export const HeroSection = () => {
           className='absolute w-16 h-16 left-[10%] top-[25%] glow-effect'
         >
           <Image
-            src='/assets/3d-kit-trophy.png'
+            src='/assets/profile.png'
             width={1000}
             height={1000}
             alt='business'
