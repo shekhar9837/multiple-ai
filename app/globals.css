@@ -79,9 +79,16 @@
 }
 
 
-.glow-effect {
+/* .glow-effect {
   filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.7)) 
           drop-shadow(0 0 40px rgba(250, 248, 248, 0.5));
+  transition: filter 0.3s all;
+} */
+ 
+.glow-effect {
+  color: inherit; /* This ensures the text color is inherited */
+  filter: drop-shadow(0 0 2px currentColor) 
+          drop-shadow(0 0 40px currentColor);
   transition: filter 0.3s all;
 }
 
@@ -96,4 +103,61 @@
 } */
 .gradient-background {
   background: linear-gradient(to bottom right, #a13c23, #6b3b16);
+}
+
+/* From Uiverse.io by Creatlydev */ 
+.button {
+  line-height: 1;
+  text-decoration: none;
+  display: inline-flex;
+  border: none;
+  cursor: pointer;
+  align-items: center;
+  gap: 0.75rem;
+  background-color: var(--clr);
+  color: #fff;
+  border-radius: 10rem;
+  font-weight: 600;
+  padding: 0.75rem 1.5rem;
+  padding-left: 20px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: background-color 0.3s;
+}
+
+.button__icon-wrapper {
+  flex-shrink: 0;
+  width: 25px;
+  height: 25px;
+  position: relative;
+  color: var(--clr);
+  background-color: #fff;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+
+.button:hover {
+  background-color: #000;
+}
+
+.button:hover .button__icon-wrapper {
+  color: #000;
+}
+
+.button__icon-svg--copy {
+  position: absolute;
+  transform: translate(-150%, 150%);
+}
+
+.button:hover .button__icon-svg:first-child {
+  transition: transform 0.3s ease-in-out;
+  transform: translate(150%, -150%);
+}
+
+.button:hover .button__icon-svg--copy {
+  transition: transform 0.3s ease-in-out 0.1s;
+  transform: translate(0);
 }
