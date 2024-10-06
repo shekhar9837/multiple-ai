@@ -1,8 +1,15 @@
 import React from 'react'
+import TemplateSection from './_components/TemplateSection'
+import SearchSection from './_components/SearchSection'
 
 const Dashboard = () => {
   return (
-    <div>Dashboard</div>
+    <div>
+            <SearchSection />
+
+            <TemplateSection/>
+
+    </div>
   )
 }
 

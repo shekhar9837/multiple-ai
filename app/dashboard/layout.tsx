@@ -1,10 +1,19 @@
 import React from 'react'
 import SideNav from './_components/SideNav'
 import Header from './_components/Header'
+import { ThemeProvider } from '@/components/theme-provider'
 
 export default function layout({children}:Readonly<{children: React.ReactNode}>) {
   return (
-    <div>
+      <div>
+<ThemeProvider
+
+            attribute="class"
+            defaultTheme="light"
+            enableSystem
+            disableTransitionOnChange
+            >
+
         <div className='fixed md:w-64  hidden md:block'>
             <SideNav/>
         </div>
@@ -15,6 +24,7 @@ export default function layout({children}:Readonly<{children: React.ReactNode}>)
 
         </div>
 
+          </ThemeProvider>
     </div>
   )
 }
