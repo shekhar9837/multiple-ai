@@ -1,20 +1,51 @@
-import template from '@/app/(data)/template'
-import React from 'react'
+'use client'
 
-const TemplateSection = () => {
-  return (
-    <div className='p-5 flex justify-center items-center'>
-        <div className='gap-4 flex flex-wrap items-center justify- '>
-        {template.map((item) =>(
-            <div key={item.name} className='p-4 w-[16rem] border rounded-md'>
-                <img src={item.icon} alt={item.name} className='w-10 h-10 '/>
-                <h2 className='text-[1.1rem] font-bold line-clamp-1'>{item.name}</h2>
-                <p className='line-clamp-3 text-sm'>{item.desc}</p>
-            </div>
-        ))}
-        </div>
-    </div>
-  )
+
+import template from "@/app/(data)/Template";
+import TemplateCard from "./TemplateCard";
+import { useStyleRegistry } from "styled-jsx";
+import { useEffect, useState } from "react";
+
+export interface TEMPLATE {
+  name: string;
+  desc: string;
+  icon: string;
+  category: string;
+  slug: string;
+  aiPrompt: string;
+  form?: FORM[];
 }
 
-export default TemplateSection
+export interface FORM {
+  label: string;
+  field: string;
+  name: string;
+  required?: boolean;
+}
+
+const TemplateSection = ({ userSearchInput }: any) => {
+  const [templateList, setTemplateList] = useState(template)
+
+  useEffect(()=>{
+
+    if(userSearchInput){
+      const filterData = template.filter((item: TEMPLATE) => item.name.toLowerCase().includes(userSearchInput.toLowerCase()))
+
+      setTemplateList(filterData)
+    }else{
+      setTemplateList(template)
+    }
+
+  }, [userSearchInput])
+
+
+  return (
+    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5  p-6 ">
+      {templateList.map((item: TEMPLATE, index: number) => (
+        <TemplateCard {...item} />
+      ))}
+    </div>
+  );
+};
+
+export default TemplateSection;
