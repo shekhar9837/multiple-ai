@@ -1,34 +1,36 @@
 "use client";
 
-import React, { useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ModeToggle } from "./theme-toggle";
-import { ArrowBigLeft, ArrowBigRightIcon, ArrowRight, User } from "lucide-react";
+import { ArrowRight, Menu, X } from "lucide-react";
 import Image from "next/image";
-import { Button } from "./ui/button";
-import Features from "@/app/_components/Features";
-import Pricing from "@/app/_components/Pricing";
-import { Tooltip  as ReactTooltip} from 'react-tooltip'
+import { Tooltip as ReactTooltip } from "react-tooltip";
 
 export const Navbar = () => {
   const [isVisible, setIsVisible] = useState(false);
-  const featureRef = useRef(null);
 
-
-  const handleMouseEnter = () => {
-    setIsVisible(true);
+  const toggleMenu = () => {
+    setIsVisible(!isVisible);
+    if (!isVisible) {
+      // Disable scrolling on body when menu is open
+      document.body.style.overflow = "hidden";
+    } else {
+      // Enable scrolling again when menu is closed
+      document.body.style.overflow = "auto";
+    }
   };
 
-  const handleMouseLeave = (event:any) => {
-      // Check if the mouse is leaving the entire feature area
-      // if (!featureRef.current.contains(event.relatedTarget)) {
-      //   setIsVisible(false);
-      // }
-  };
+  // Ensure to enable scrolling when the component unmounts or the menu is closed
+  useEffect(() => {
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, []);
 
   return (
-    <div className=" max-w-full  backdrop-blur-lg mx-20 my-4 border rounded-2xl px-6 py-6 flex items-center justify-between  z-999">
-      <nav className="">
-        {/* <h1 className=' font-extrabold text-[1.6rem] tracking-normal'>Multiple AI.</h1> */}
+    <div className="max-w-full backdrop-blur-lg md:mx-20 md:my-4 md:border rounded-2xl px-6 py-6 flex items-center justify-between">
+      {/* Logo */}
+      <nav className="z-9">
         <Image
           src="/assets/logo.png"
           width={200}
@@ -38,48 +40,97 @@ export const Navbar = () => {
         />
       </nav>
 
-      <div className="flex  items-center ">
+      {/* Desktop Menu */}
+      <div className="md:flex hidden items-center">
         <ul className="flex items-center justify-center gap-6 font-light tracking-wider text-lg">
-        <li>
-          <a href="#" data-tip data-for="featuresTooltip" className="relative  ">
-            Features
-          </a>
-          <ReactTooltip id="featuresTooltip" place="bottom"  className="absolute w-48 bg-white p-4 shadow-lg rounded-lg">
-            <h3 className="font-semibold">Feature Details</h3>
-            <ul className="mt-2">
-              <li className="py-1">Feature 1</li>
-              <li className="py-1">Feature 2</li>
-              <li className="py-1">Feature 3</li>
-            </ul>
-          </ReactTooltip>
-        </li>
+          <li>
+            <a href="#" data-tip data-for="featuresTooltip" className="relative">
+              Features
+            </a>
+            <ReactTooltip
+              id="featuresTooltip"
+              place="bottom"
+              className="absolute w-48 bg-white p-4 shadow-lg rounded-lg"
+            >
+              <h3 className="font-semibold">Feature Details</h3>
+              <ul className="mt-2">
+                <li className="py-1">Feature 1</li>
+                <li className="py-1">Feature 2</li>
+                <li className="py-1">Feature 3</li>
+              </ul>
+            </ReactTooltip>
+          </li>
 
           <li>
-            <a href="#" className=" ">
-              Pricing
-            </a>
+            <a href="#">Pricing</a>
           </li>
           <li>
-            <a href="#" className=" ">
-              Get In Touch
-            </a>
+            <a href="#">Get In Touch</a>
           </li>
           <li>
-          <a href="#" className="">
-              Login
-            </a>
+            <a href="#">Login</a>
           </li>
           <li>
-            <button className="flex items-center bg-blue-700 text-white  px-4 py-2 rounded-lg  ">
+            <button className="flex items-center bg-blue-700 text-white px-4 py-2 rounded-lg">
               Try Multiple Free
-              <ArrowRight className="w-5 h-5" />
-              </button>
+              <ArrowRight className="w-5 h-5 ml-2" />
+            </button>
           </li>
           <li>
             <ModeToggle />
           </li>
         </ul>
       </div>
+
+      {/* Mobile Menu Icon */}
+      <div className="md:hidden flex gap-2">
+      <div className=" ">
+              <ModeToggle />
+            </div>
+        <button onClick={toggleMenu}>
+          {isVisible ? <X className="w-8 h-8" /> : <Menu className="w-8 h-8" />}
+        </button>
+      </div>
+
+      {/* Mobile Menu */}
+      {isVisible && (
+        <div className="fixed inset-0 w-full h-screen dark:bg-black bg-white bg-opacity-100 flex flex-col items-center justify-center z-50">
+          
+         
+          <button onClick={toggleMenu} className="absolute top-8 right-8">
+            <X className="w-8 h-8" />
+          </button>
+          <ul className="flex flex-col items-center gap-6 font-medium tracking-widest text-xl ">
+            <li>
+              <a href="#" onClick={toggleMenu}>
+                Features
+              </a>
+            </li>
+            <li>
+              <a href="#" onClick={toggleMenu}>
+                Pricing
+              </a>
+            </li>
+            <li>
+              <a href="#" onClick={toggleMenu}>
+                Get In Touch
+              </a>
+            </li>
+            <li>
+              <a href="#" onClick={toggleMenu}>
+                Login
+              </a>
+            </li>
+            <li>
+              <button className="flex items-center bg-blue-700 text-white px-4 py-2 rounded-lg">
+                Try Multiple Free
+                <ArrowRight className="w-5 h-5 ml-2" />
+              </button>
+            </li>
+           
+          </ul>
+        </div>
+      )}
     </div>
   );
 };

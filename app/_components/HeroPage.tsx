@@ -2,13 +2,7 @@
 
 import Image from "next/image";
 import React from "react";
-import { motion } from "framer-motion";
-import { Navbar } from "@/components/Navbar";
-import { Button } from "@/components/ui/button";
-import { BookOpenText, ChevronsRight, ExpandIcon } from "lucide-react";
-import HomeButton from "@/components/HomeButton/HomeButton";
-import HalfGradientBackground from "@/components/HalfGradientBackground";
-import Card from "@/components/card/Card";
+import { BookOpenText, ChevronsRight } from "lucide-react";
 
 export const HomePage = () => {
   const contentTypes = [
@@ -43,60 +37,47 @@ export const HomePage = () => {
       gradient: "from-yellow-500 to-orange-500",
     },
   ];
+
   return (
-    <div className="w-full bg-red   flex flex-row items-start justify-center my-0  px-12">
-      {/* Main Content */}
-      <div className="w-1/2 flex items-center justify-center flex-col bg-red-900    z-20  py-16">
-        <div className="flex flex-col items-start  leading-none ">
-          <h1 className="flex text-[3rem]  font-medium tracking-wider text-wrap">
-            {/* Let AI make your Content
-             */}
-             <span className=" ">
-             <Image
-              width={200}
-              height={200}
-              alt="realx"
-              src='/assets/Relax-removebg-preview.png'
-              className="h-16 w-auto"
-             />
+    <div className="flex w-full  justify-center items-center md:px-12 px-6">
+      {/* Left Section */}
+      <div className="md:w-1/2 flex flex-col items-start justify-center  py-16 md:pl-16 md:px-2">
+      <h1 className="text-4xl  font-medium tracking-wide leading-snug">
+      
+      <span className="inline-block text-blue-600 pr-2 font-bold">
+      Relax,
 
-             </span>
-             let AI make your Content
-           
-          </h1>
+      </span>
+       let AI create your content effortlessly.
+</h1>
+      
 
-         
-          
-
-          <p className="text-[1.2rem] py-4">
-            Transform ideas into ready-to-use content—blogs,
-            <br /> articles, scripts, and more—in seconds.
-          </p>
-        </div>
-
-        {/* Base */}
-        <div className="my-10 flex gap-5">
-          <button className="flex font-semibold   tracking-widest items-center px-8 py-4  rounded-md bg-blue-600">
-            Get Started Free <ChevronsRight />
+        <p className="text-xl py-4 leading-relaxed">
+          Transform ideas into ready-to-use content—blogs, articles, scripts,
+          and more—in seconds.
+        </p>
+        {/* Buttons */}
+        <div className="flex md:flex-row flex-col gap-5 mt-8">
+          <button className="flex items-center px-8 py-4 font-semibold tracking-widest text-white bg-blue-600 rounded-md
+          hover:-translate-y-1 transition-all 
+          ">
+            Get Started Free <ChevronsRight className="ml-2" />
           </button>
-          <button className="flex font-semibold  tracking-widest items-center px-8 py-4  text-blue-800 rounded-md bg-blue-200">
-            Get a Demo 
+          <button className="flex items-center px-8 py-4 font-semibold  tracking-widest text-blue-800 bg-blue-100 dark:bg-blue-100 hover:bg-blue-200 dark:hover:bg-blue-200 hover:-translate-y-1 transition-all rounded-md">
+            Get a Demo
           </button>
-         
         </div>
       </div>
 
-      <div className="w-1/2 flex items-center justify-center ">
-      <div>
-
+      {/* Right Section */}
+      <div className="md:w-1/2 md:flex  hidden items-center justify-center">
         <Image
           src="/assets/cubes-man-on-a-surfboard-conquers-social-media.gif"
           width={1920}
           height={1080}
-          alt="3d-casual-life-young-man-drawing-curve-in-program-for-designers"
+          alt="3D animation of man surfing social media"
           className="w-[30rem] h-auto"
-          />
-          </div>
+        />
       </div>
     </div>
   );
